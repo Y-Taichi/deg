@@ -44,7 +44,7 @@ export default function App() {
   const [difficulty, setDifficulty] = useState<Difficulty>('Normal');
   const [round, setRound] = useState(1);
   const [rounds, setRounds] = useState<RoundData[]>([]);
-  
+
   const [targetAngle, setTargetAngle] = useState(0);
   const [baseAngle, setBaseAngle] = useState(0);
   const [dir, setDir] = useState(1);
@@ -52,7 +52,7 @@ export default function App() {
   const [strokeWidth, setStrokeWidth] = useState(4);
   const [inputValue, setInputValue] = useState('');
   const [playPhase, setPlayPhase] = useState<PlayPhase>('animating_question');
-  
+
   // Animations
   const [line1Anim, setLine1Anim] = useState(0);
   const [line2Anim, setLine2Anim] = useState(0);
@@ -107,10 +107,10 @@ export default function App() {
       const runAnim = async () => {
         const userAngle = parseInt(inputValue || '0');
         const maxAngle = Math.max(userAngle, targetAngle);
-        await animate(0, maxAngle, { 
-          duration: Math.max(1, maxAngle / 180), 
-          onUpdate: setCurrentAnimAngle, 
-          ease: "easeInOut" 
+        await animate(0, maxAngle, {
+          duration: Math.max(1, maxAngle / 180),
+          onUpdate: setCurrentAnimAngle,
+          ease: "easeInOut"
         });
         setResultAnimFinished(true);
       };
@@ -199,7 +199,7 @@ export default function App() {
         <h1 className="font-script text-[35vw] md:text-[20vw] leading-none m-0 p-0 select-none mt-8">deg.</h1>
         <div className="flex flex-col w-full mt-12">
           {(['Easy', 'Normal', 'Pro', 'Hell'] as Difficulty[]).map(diff => (
-            <button 
+            <button
               key={diff}
               onClick={() => startGame(diff)}
               className="relative w-full hover:bg-gray-50 transition-colors group"
@@ -246,7 +246,7 @@ export default function App() {
 
     return (
       <div className={`h-screen w-screen flex flex-col cursor-pointer p-4 md:p-8 font-sans relative overflow-hidden ${modeColors[difficulty]}`} onClick={handleResultClick}>
-        
+
         {/* Header */}
         <div className={`flex justify-between items-end px-2 pb-4 pt-2 ${modeDarkTextColors[difficulty]}`}>
           <div className="text-4xl md:text-5xl font-black tracking-widest">RESULT</div>
@@ -255,11 +255,11 @@ export default function App() {
 
         {/* Card */}
         <div className="flex-1 bg-white rounded-2xl flex flex-col items-center justify-center relative w-full shadow-2xl overflow-hidden">
-          
+
           <div className={`text-[40vw] md:text-[20vw] leading-none select-none font-black absolute top-[10%] transition-opacity duration-300 ${resultStep >= 1 ? 'opacity-100' : 'opacity-0'}`}>
             {rank}
           </div>
-          
+
           <div className={`text-4xl md:text-5xl font-bold select-none absolute top-[40%] transition-opacity duration-300 ${resultStep >= 2 ? 'opacity-100' : 'opacity-0'}`}>
             Score: {score}/360
           </div>
@@ -298,12 +298,12 @@ export default function App() {
           </div>
 
           {resultStep >= 6 && (
-            <motion.div 
-              animate={{ opacity: [0, 1, 0] }} 
-              transition={{ repeat: Infinity, duration: 1.5 }} 
+            <motion.div
+              animate={{ opacity: [0, 1, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5 }}
               className="absolute bottom-6 text-lg md:text-xl text-gray-400 font-bold select-none"
             >
-              画面のどこかを押して次へ...
+              画面のどこかを押してタイトルへ...
             </motion.div>
           )}
         </div>
@@ -334,73 +334,73 @@ export default function App() {
   return (
     <motion.div layout className="flex flex-col h-screen w-screen bg-white text-black overflow-hidden">
       {/* SVG Area */}
-      <motion.div 
-        layout 
-        className={`relative flex flex-col items-center justify-center w-full overflow-hidden ${playPhase === 'input' ? 'h-[60vh]' : 'h-full cursor-pointer'}`} 
+      <motion.div
+        layout
+        className={`relative flex flex-col items-center justify-center w-full overflow-hidden ${playPhase === 'input' ? 'h-[60vh]' : 'h-full cursor-pointer'}`}
         onClick={handleNext}
       >
         <div className="absolute top-4 left-4 text-[8vw] md:text-[3vw] text-gray-300 select-none z-10">
           {round} / 3
         </div>
-        
+
         <svg viewBox="-130 -130 260 260" className="w-full h-full max-w-full p-0" preserveAspectRatio="xMidYMid meet">
           {playPhase === 'animating_question' && (
             <g strokeLinecap="butt" strokeLinejoin="round">
               {line1Anim === 1 ? (
-                <path d={`M ${polarToCartesian(0,0,100, currentLine1Angle).x} ${polarToCartesian(0,0,100, currentLine1Angle).y} L 0 0 L ${polarToCartesian(0,0,100, currentLine2Angle).x} ${polarToCartesian(0,0,100, currentLine2Angle).y}`} fill="none" stroke="black" strokeWidth={strokeWidth} />
+                <path d={`M ${polarToCartesian(0, 0, 100, currentLine1Angle).x} ${polarToCartesian(0, 0, 100, currentLine1Angle).y} L 0 0 L ${polarToCartesian(0, 0, 100, currentLine2Angle).x} ${polarToCartesian(0, 0, 100, currentLine2Angle).y}`} fill="none" stroke="black" strokeWidth={strokeWidth} />
               ) : (
-                <path d={`M 0 0 L ${polarToCartesian(0,0,100, currentLine1Angle).x} ${polarToCartesian(0,0,100, currentLine1Angle).y}`} fill="none" stroke="black" strokeWidth={strokeWidth} />
+                <path d={`M 0 0 L ${polarToCartesian(0, 0, 100, currentLine1Angle).x} ${polarToCartesian(0, 0, 100, currentLine1Angle).y}`} fill="none" stroke="black" strokeWidth={strokeWidth} />
               )}
               {line2Anim === 1 && (
-                <path d={describeArc(0,0,30, baseAngle, baseAngle + currentArcAngle * dir)} fill="none" stroke="black" strokeWidth={1} />
+                <path d={describeArc(0, 0, 30, baseAngle, baseAngle + currentArcAngle * dir)} fill="none" stroke="black" strokeWidth={1} />
               )}
             </g>
           )}
 
           {playPhase === 'input' && (
             <g strokeLinecap="butt" strokeLinejoin="round">
-              <path d={`M ${polarToCartesian(0,0,100, baseAngle).x} ${polarToCartesian(0,0,100, baseAngle).y} L 0 0 L ${polarToCartesian(0,0,100, baseAngle + targetAngle * dir).x} ${polarToCartesian(0,0,100, baseAngle + targetAngle * dir).y}`} fill="none" stroke="black" strokeWidth={strokeWidth} />
-              <path d={describeArc(0,0,30, baseAngle, baseAngle + targetAngle * dir)} fill="none" stroke="black" strokeWidth={1} />
+              <path d={`M ${polarToCartesian(0, 0, 100, baseAngle).x} ${polarToCartesian(0, 0, 100, baseAngle).y} L 0 0 L ${polarToCartesian(0, 0, 100, baseAngle + targetAngle * dir).x} ${polarToCartesian(0, 0, 100, baseAngle + targetAngle * dir).y}`} fill="none" stroke="black" strokeWidth={strokeWidth} />
+              <path d={describeArc(0, 0, 30, baseAngle, baseAngle + targetAngle * dir)} fill="none" stroke="black" strokeWidth={1} />
             </g>
           )}
 
           {playPhase === 'show_result' && (
             <g strokeLinecap="butt" strokeLinejoin="round">
               {/* 固定の第一線と第二線 (繋げて描画) */}
-              <path d={`M ${polarToCartesian(0,0,100, baseAngle).x} ${polarToCartesian(0,0,100, baseAngle).y} L 0 0 L ${polarToCartesian(0,0,100, baseAngle + targetAngle * dir).x} ${polarToCartesian(0,0,100, baseAngle + targetAngle * dir).y}`} fill="none" stroke={targetColor} strokeWidth={strokeWidth} className="transition-colors duration-500" />
-              
+              <path d={`M ${polarToCartesian(0, 0, 100, baseAngle).x} ${polarToCartesian(0, 0, 100, baseAngle).y} L 0 0 L ${polarToCartesian(0, 0, 100, baseAngle + targetAngle * dir).x} ${polarToCartesian(0, 0, 100, baseAngle + targetAngle * dir).y}`} fill="none" stroke={targetColor} strokeWidth={strokeWidth} className="transition-colors duration-500" />
+
               {/* 固定の第一線 (色が違う場合の上書き用) */}
               {!isTargetPassed && !isPerfect && (
-                <path d={`M 0 0 L ${polarToCartesian(0,0,100, baseAngle).x} ${polarToCartesian(0,0,100, baseAngle).y}`} fill="none" stroke="black" strokeWidth={strokeWidth} />
+                <path d={`M 0 0 L ${polarToCartesian(0, 0, 100, baseAngle).x} ${polarToCartesian(0, 0, 100, baseAngle).y}`} fill="none" stroke="black" strokeWidth={strokeWidth} />
               )}
-              
+
               {/* 固定の正解弧 */}
-              <path d={describeArc(0,0,30, baseAngle, baseAngle + targetAngle * dir)} fill="none" stroke={targetColor} strokeWidth={1} className="transition-colors duration-500" />
+              <path d={describeArc(0, 0, 30, baseAngle, baseAngle + targetAngle * dir)} fill="none" stroke={targetColor} strokeWidth={1} className="transition-colors duration-500" />
 
               {/* ユーザーの線 */}
               {isUserPassed && (
-                <path d={`M ${polarToCartesian(0,0,100, baseAngle).x} ${polarToCartesian(0,0,100, baseAngle).y} L 0 0 L ${polarToCartesian(0,0,100, baseAngle + userAngle * dir).x} ${polarToCartesian(0,0,100, baseAngle + userAngle * dir).y}`} fill="none" stroke={resultColor} strokeWidth={strokeWidth} />
+                <path d={`M ${polarToCartesian(0, 0, 100, baseAngle).x} ${polarToCartesian(0, 0, 100, baseAngle).y} L 0 0 L ${polarToCartesian(0, 0, 100, baseAngle + userAngle * dir).x} ${polarToCartesian(0, 0, 100, baseAngle + userAngle * dir).y}`} fill="none" stroke={resultColor} strokeWidth={strokeWidth} />
               )}
 
               {/* 点線の弧 */}
-              <path d={describeArc(0,0,40, baseAngle, baseAngle + Math.min(currentAnimAngle, userAngle) * dir)} fill="none" stroke={resultColor} strokeWidth={1} strokeDasharray="4 4" />
+              <path d={describeArc(0, 0, 40, baseAngle, baseAngle + Math.min(currentAnimAngle, userAngle) * dir)} fill="none" stroke={resultColor} strokeWidth={1} strokeDasharray="4 4" />
 
               {/* 回転する線 */}
               {!resultAnimFinished && (
-                <path d={`M ${polarToCartesian(0,0,100, baseAngle).x} ${polarToCartesian(0,0,100, baseAngle).y} L 0 0 L ${polarToCartesian(0,0,100, baseAngle + currentAnimAngle * dir).x} ${polarToCartesian(0,0,100, baseAngle + currentAnimAngle * dir).y}`} fill="none" stroke="#9ca3af" strokeWidth={strokeWidth} />
+                <path d={`M ${polarToCartesian(0, 0, 100, baseAngle).x} ${polarToCartesian(0, 0, 100, baseAngle).y} L 0 0 L ${polarToCartesian(0, 0, 100, baseAngle + currentAnimAngle * dir).x} ${polarToCartesian(0, 0, 100, baseAngle + currentAnimAngle * dir).y}`} fill="none" stroke="#9ca3af" strokeWidth={strokeWidth} />
               )}
 
               {/* テキスト群 */}
               {resultAnimFinished && (
                 <>
-                  <text x={polarToCartesian(0,0,115, baseAngle).x} y={polarToCartesian(0,0,115, baseAngle).y} dominantBaseline="middle" textAnchor="middle" fill={resultColor} fontSize="16" fontWeight="bold">
+                  <text x={polarToCartesian(0, 0, 115, baseAngle).x} y={polarToCartesian(0, 0, 115, baseAngle).y} dominantBaseline="middle" textAnchor="middle" fill={resultColor} fontSize="16" fontWeight="bold">
                     0°
                   </text>
-                  <text x={polarToCartesian(0,0,115, baseAngle + userAngle * dir).x} y={polarToCartesian(0,0,115, baseAngle + userAngle * dir).y} dominantBaseline="middle" textAnchor="middle" fill={resultColor} fontSize="16" fontWeight="bold">
+                  <text x={polarToCartesian(0, 0, 115, baseAngle + userAngle * dir).x} y={polarToCartesian(0, 0, 115, baseAngle + userAngle * dir).y} dominantBaseline="middle" textAnchor="middle" fill={resultColor} fontSize="16" fontWeight="bold">
                     {userAngle}°
                   </text>
                   {!isPerfect && (
-                    <text x={polarToCartesian(0,0,115, baseAngle + targetAngle * dir).x} y={polarToCartesian(0,0,115, baseAngle + targetAngle * dir).y} dominantBaseline="middle" textAnchor="middle" fill="black" fontSize="16" fontWeight="bold">
+                    <text x={polarToCartesian(0, 0, 115, baseAngle + targetAngle * dir).x} y={polarToCartesian(0, 0, 115, baseAngle + targetAngle * dir).y} dominantBaseline="middle" textAnchor="middle" fill="black" fontSize="16" fontWeight="bold">
                       {targetAngle}°
                     </text>
                   )}
@@ -411,12 +411,12 @@ export default function App() {
         </svg>
 
         {playPhase === 'show_result' && resultAnimFinished && (
-          <motion.div 
-            animate={{ opacity: [0, 1, 0] }} 
-            transition={{ repeat: Infinity, duration: 1.5 }} 
+          <motion.div
+            animate={{ opacity: [0, 1, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5 }}
             className="absolute bottom-8 text-[5vw] md:text-[2vw] text-gray-500 select-none z-10"
           >
-            画面のどこかを押してタイトルへ...
+            画面のどこかを押して次へ...
           </motion.div>
         )}
       </motion.div>
@@ -424,10 +424,10 @@ export default function App() {
       {/* Keyboard Area */}
       <AnimatePresence>
         {playPhase === 'input' && (
-          <motion.div 
-            initial={{ y: '100%' }} 
-            animate={{ y: 0 }} 
-            exit={{ y: '100%' }} 
+          <motion.div
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '100%' }}
             transition={{ type: 'spring', bounce: 0, duration: 0.5 }}
             className="h-[40vh] w-full flex flex-col bg-gray-200 absolute bottom-0 left-0 right-0 overflow-hidden"
           >
@@ -438,45 +438,45 @@ export default function App() {
             {/* Numpad (Ratio 4 total, 1 per row) */}
             <div className="flex-[4] grid grid-cols-3 grid-rows-4 gap-1 p-1 w-full bg-gray-200">
               {[7, 8, 9, 4, 5, 6, 1, 2, 3].map(n => (
-                <button 
-                  key={n} 
-                  onClick={() => handleNumClick(n)} 
+                <button
+                  key={n}
+                  onClick={() => handleNumClick(n)}
                   className="bg-white rounded-lg text-[3.5vh] font-bold active:scale-95 transition-transform select-none touch-manipulation flex items-center justify-center h-full w-full"
                 >
                   {n}
                 </button>
               ))}
-              <button 
-                onClick={handleClear} 
+              <button
+                onClick={handleClear}
                 className="bg-white text-red-500 rounded-lg text-[3.5vh] font-bold active:scale-95 transition-transform select-none touch-manipulation flex items-center justify-center h-full w-full"
               >
                 C
               </button>
               {difficulty === 'Hell' ? (
                 <div className="grid grid-cols-2 gap-1 h-full w-full">
-                  <button 
-                    onClick={() => handleNumClick(0)} 
+                  <button
+                    onClick={() => handleNumClick(0)}
                     className="bg-white rounded-lg text-[3.5vh] font-bold active:scale-95 transition-transform select-none touch-manipulation flex items-center justify-center h-full w-full"
                   >
                     0
                   </button>
-                  <button 
-                    onClick={() => handleNumClick('.')} 
+                  <button
+                    onClick={() => handleNumClick('.')}
                     className="bg-white rounded-lg text-[3.5vh] font-bold active:scale-95 transition-transform select-none touch-manipulation flex items-center justify-center h-full w-full"
                   >
                     .
                   </button>
                 </div>
               ) : (
-                <button 
-                  onClick={() => handleNumClick(0)} 
+                <button
+                  onClick={() => handleNumClick(0)}
                   className="bg-white rounded-lg text-[3.5vh] font-bold active:scale-95 transition-transform select-none touch-manipulation flex items-center justify-center h-full w-full"
                 >
                   0
                 </button>
               )}
-              <button 
-                onClick={handleEnter} 
+              <button
+                onClick={handleEnter}
                 className="bg-blue-500 text-white rounded-lg text-[3vh] font-bold active:scale-95 transition-transform flex items-center justify-center select-none touch-manipulation h-full w-full"
               >
                 Enter

@@ -1,13 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700;900&display=swap');
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Helvetica Rounded LT Bold';
+  src: url('/fonnts.com-Helvetica_Rounded_LT_Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --font-script: "Great Vibes", cursive;
-  --font-sans: "Inter", sans-serif;
+  --font-sans: "Helvetica Rounded LT Bold", "Inter", sans-serif;
 }
 
 body {
-  font-family: "Inter", sans-serif;
+  font-family: "Helvetica Rounded LT Bold", "Inter", sans-serif;
   margin: 0;
   padding: 0;
   overflow: hidden;
