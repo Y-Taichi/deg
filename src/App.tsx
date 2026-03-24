@@ -303,7 +303,7 @@ export default function App() {
               transition={{ repeat: Infinity, duration: 1.5 }} 
               className="absolute bottom-6 text-lg md:text-xl text-gray-400 font-bold select-none"
             >
-              Tap anywhere to continue...
+              画面のどこかを押して次へ...
             </motion.div>
           )}
         </div>
@@ -416,7 +416,7 @@ export default function App() {
             transition={{ repeat: Infinity, duration: 1.5 }} 
             className="absolute bottom-8 text-[5vw] md:text-[2vw] text-gray-500 select-none z-10"
           >
-            Tap anywhere to continue...
+            画面のどこかを押してタイトルへ...
           </motion.div>
         )}
       </motion.div>
